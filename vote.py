@@ -12,9 +12,10 @@ def vote(result):
         for a in row[:-1]:
             p = np.argmax(a)
             r.append(labels[p])
-        r = np.argmax(np.bincount(r))
-        # print(r,l)
-        if r == l:
+
+        rr = np.argmax(np.bincount(r))
+        print('list:{0} vote:{1} label:{2}'.format(r,l,rr))
+        if rr == l:
             count += 1
     accurary = count/len(label)
     print("most vote: ",accurary)

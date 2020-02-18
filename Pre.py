@@ -1,7 +1,10 @@
-from sklearn.datasets.base import Bunch
 import csv
+
 import numpy as np
 import pandas as pd
+from imblearn.over_sampling import SMOTE
+from sklearn.datasets.base import Bunch
+
 
 def pre(file, label):
     df = pd.read_csv(file)
@@ -23,8 +26,9 @@ def pre(file, label):
                 else:
                     data[i] = np.asarray(sample[1:], dtype=np.float64)
                     target[i] = np.asarray(sample[0], dtype=np.int)
-
+        data,target = SMOTE().fit_resample(data,target)
         return Bunch(data=data, target=target, target_names=set(target))
-
     md = load_dataset(file, n_samples, n_features)
     return md
+if __name__ == '__main__':
+    wine2 = pre('./datasets/winequality-red.csv', 1)
